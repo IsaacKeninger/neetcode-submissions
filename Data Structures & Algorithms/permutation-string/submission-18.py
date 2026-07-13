@@ -1,0 +1,22 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        
+        if len(s1) > len(s2):
+            return False
+        
+        ct1 = {}
+        for i in range(len(s1)):
+            ct1[s1[i]] = 1 + ct1.get(s1[i], 0)
+        
+        ct2 = {}
+        l = 0
+        for r in range(len(s2)):
+            ct2[s2[r]] = 1 + ct2.get(s2[r], 0)
+            if (r - l + 1) > len(s1):
+                ct2[s2[l]] -= 1
+                if ct2[s2[l]] == 0:
+                    del ct2[s2[l]]
+                l += 1
+            if ct2 == ct1:
+                return True
+        return False
