@@ -1,0 +1,20 @@
+class Solution:
+
+    def encode(self, strs: List[str]) -> str:
+        encoded_string = ""
+        for s in strs:
+            encoded_string += (str(len(s)) + "$" + s)
+        return encoded_string
+        # 5$hello5$world
+    def decode(self, s: str) -> List[str]:
+        decoded_strs = []
+        i = 0
+        while i < len(s):
+            j = i
+            while s[j] != "$":
+                j += 1
+            length = int(s[i:j])
+            content = s[j+1:j + 1 + length]
+            decoded_strs.append(content)
+            i = j + 1 + length
+        return decoded_strs
